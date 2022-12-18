@@ -1,7 +1,42 @@
+//====1111111111111111111111111111===========================================================================================
+//برای آدرس دهی و انتقال داده بین فرگمنتها استفاده میشود
+//شما باید یه بخش دوم این کد هم در بعد پلاگین اضافه کنید وگرنه آدرس هار پیدا نمیکنه
+buildscript {
+    repositories {
+        google()
+    }
+    dependencies {
+        classpath "androidx.navigation.safeargs:androidx.navigation.safeargs.gradle.plugin:2.5.3"
+        classpath "org.jetbrains.kotlin:kotlin-serialization:1.7.21"
+        classpath 'com.google.dagger:hilt-android-compiler:2.44.2'
+    }
+}
+//====111111111111111111111111111111111111============================================================================================
+
+
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-android-extensions'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'com.google.dagger.hilt.android'
 }
+
+
+//====2222222222222222222============================================================================================
+//بخش دوم از سیف آرگ و آدرس دهی بین فرگمنتها
+//اگر این خط اضافه نشود دقیقا بعد بخش پلاگین آدرس دهی بین فرگمنت ها کار نمیکند
+//یک بخش هم باید بالای بالا تعریف شود که شده
+// تو سایت گوگل چیز دیگه ای رو تعریف کرده
+//plugins {
+//    id("androidx.navigation.safeargs.kotlin")
+//}
+
+apply plugin: "androidx.navigation.safeargs"
+apply plugin: "kotlinx-serialization"
+//================================================================================================
+
 
 android {
     namespace 'com.aristotele.noteapp'
@@ -15,6 +50,10 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        //فعال میکنیم برای کد زیاد
+        multiDexEnabled true
+        //فعال برای نمایش وکتور در نسخه های قدیمی
+        vectorDrawables.useSupportLibrary = true
     }
 
     buildTypes {
@@ -30,15 +69,57 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    //افزودن دیتابایندینگ برای لایوت ها
+    buildFeatures {
+        viewBinding true
+    }
 }
 
-dependencies {
 
-    implementation 'androidx.core:core-ktx:1.7.0'
+
+// برای هیلت در سایت اندروید گفته فعال بشود
+// Allow references to generated code
+//https://developer.android.com/training/dependency-injection/hilt-android#kotlin
+kapt {
+    correctErrorTypes true
+}
+
+
+
+dependencies {
+    //Android
+    implementation 'androidx.core:core-ktx:1.9.0'
     implementation 'androidx.appcompat:appcompat:1.5.1'
     implementation 'com.google.android.material:material:1.7.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
+    //Navigation
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.5.3'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.5.3'
+    //Room components
+    implementation 'androidx.room:room-runtime:2.4.3'
+    kapt 'androidx.room:room-compiler:2.4.3'
+    implementation 'androidx.room:room-ktx:2.4.3'
+
+    //Dagger - Hilt
+    implementation "com.google.dagger:hilt-android:2.44.2"
+    kapt "com.google.dagger:hilt-compiler:2.44.2"
+    kapt "androidx.hilt:hilt-compiler:1.0.0"
+    //Coroutines
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
+
+    //Lifecycle
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.5.1"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.5.1"
+
+    //Dynamic sizes
+    // کتابخانه شخصی آقای مهندس که آموزش ازش خریدیم برای ریسایز کردن اندازه ها در هر لزولوشن خاص
+    implementation 'com.github.MrNouri:DynamicSizes:1.0'
+
+
 }
