@@ -24,6 +24,8 @@ class NoteFragment : BottomSheetDialogFragment() {
 
     //Other
     private val viewModel: NoteViewModel by viewModels()
+
+
     private var category = ""
     private var priority = ""
     private var noteId = 0
@@ -39,6 +41,8 @@ class NoteFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
         //Bundle
         noteId = arguments?.getInt(BUNDLE_ID) ?: 0
         //Type
@@ -49,10 +53,19 @@ class NoteFragment : BottomSheetDialogFragment() {
             isEdit = false
             type = NEW
         }
+
+
+
         //InitViews
         binding?.apply {
+
+
             //Close
             closeImg.setOnClickListener { dismiss() }
+
+
+
+
             //Spinner Category
             viewModel.loadCategoriesData()
             viewModel.categoriesList.observe(viewLifecycleOwner) {

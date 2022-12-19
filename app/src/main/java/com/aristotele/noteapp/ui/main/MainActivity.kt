@@ -48,38 +48,70 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+
         //پُر کردن بایندینگ
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding?.root)
 
 
+
         //InitViews
         binding?.apply {
+
+
+
             //Support toolbar
+            // ست کردن اکشن بار بالا
+            //notesToolbar اسم آیدی تولباره در فایل xml
             setSupportActionBar(notesToolbar)
+
+
+
+
             //Note fragment
+            // دکمه بعلاوه پایین صفحه که میزنیم یه فرگمنتی رو میاره بالا
+            // ما یه فرگمنت داریم از پایین میاد بالا به  اسم  NoteFragment
             addNoteBtn.setOnClickListener {
                 NoteFragment().show(supportFragmentManager, NoteFragment().tag)
             }
 
+
+
+
             //Get data
+            // بیا برو از دیتابیس همه داده ها رو بگیر
             viewModel.getAllNotes()
+            // وقتی بالایی اجرا میشه اتوماتیک مقدار notesData رو آپدیت میکنه و این پایینی کارمی افته
             viewModel.notesData.observe(this@MainActivity) {
+                //مرحله 1 نمایش ریسایکلر و یا نمایش عکس خالی بودن
                 showEmpty(it.isEmpty)
-                notesAdapter.setData(it.data!!)
+
+                // این لیستی که میرسه رو بده به آدابتر تا مرحله بعد آدابتر رو بدیم به ریسایکلر ویو
+                it.data?.let { it1 -> notesAdapter.setData(it1) }
+
+
+                //این ریسایکلر ویو هست و 2 مقدار توش رو مقدار دهی میکنیم
+                //یکی مدل نمایش داده ها در 2 ستون و زیر هم و یکی هم آدابتر
                 noteList.apply {
                     layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
                     adapter = notesAdapter
                 }
             }
 
+
+
+
             /**
-             * این میاد فیلتر اضافه میکنه به اون قسمت بالا
+             * این تشخیص میده رو کدوم دکمه داخل اون بالا کلیک شده
+             *  این میاد فیلتر اضافه میکنه به اون قسمت بالا
+             *
              */
+
             //Filter
             notesToolbar.setOnMenuItemClickListener {
                 when (it.itemId) {
                     R.id.actionFilter -> {
+                        //این فانکشن میاد یک دیالوگ با 4 گزینه میسازه
                         priorityFilter()
                         return@setOnMenuItemClickListener true
                     }
@@ -88,6 +120,9 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
             }
+
+
+
             //Clicks
             /**
              * این کلیک روی اون دکه پایینی هست
@@ -171,9 +206,14 @@ class MainActivity : AppCompatActivity() {
      * و نوشته و فقط کپی پیست کرد اینجا
      */
     private fun priorityFilter() {
-        val builder = AlertDialog.Builder(this)
 
+//        یه دیالوگ میسازیم با 4 تا رادیو باتن
+        val builder = AlertDialog.Builder(this)
+// این چهار تا رو میدیم بهش
         val priority = arrayOf("All", HIGH, NORMAL, LOW)
+
+//        حالا میایم کلیک رو تا ببینیم روی کدوم گزینه کلیک و انتخواب میشه
+//        اگر همه باشه میره همه رو میگیره اگر نه یکی از 3 گزینه بعدی
         builder.setSingleChoiceItems(priority, selectedItem) { dialog, item ->
             when (item) {
                 0 -> {
@@ -186,10 +226,14 @@ class MainActivity : AppCompatActivity() {
             selectedItem = item
             dialog.dismiss()
         }
+//        ساخت دیالوگ
         val dialog: AlertDialog = builder.create()
+//        نمایشش
         dialog.show()
     }
 
+
+//    اینم تکلیفش معلومه
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
