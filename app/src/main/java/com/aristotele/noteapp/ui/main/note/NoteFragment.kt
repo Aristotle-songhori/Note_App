@@ -77,6 +77,8 @@ class NoteFragment : BottomSheetDialogFragment() {
                     }
                 }
             }
+
+
             //Click
             saveNote.setOnClickListener {
                 val title = titleEdt.text.toString()

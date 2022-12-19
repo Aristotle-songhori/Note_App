@@ -13,6 +13,13 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
+/**
+ * مدول hilt برای بخش database در room
+ * اینجا میایم 3 تا بخش اصلی دیتابیس رو مشخص میکنیم
+ * 1- خود دیتابیس
+ * 2-dao
+ * 3-entities
+ */
 @Module
 @InstallIn(SingletonComponent::class)
 object DatabaseModule {

@@ -6,6 +6,11 @@ import com.aristotele.noteapp.data.model.NoteEntity
 import com.aristotele.noteapp.utils.NOTE_TABLE
 import kotlinx.coroutines.flow.Flow
 
+/**
+ * بخش dao که میدونیم
+ * سینکس های room رو نگه میداره
+ * اگر خروجی بده حتما از flow و جریان اطلاغات استفاده بشه
+ */
 @Dao
 interface NoteDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -18,7 +23,7 @@ interface NoteDao {
     suspend fun updateNote(entity: NoteEntity)
 
     @Query("SELECT * FROM $NOTE_TABLE")
-    fun getAllNotes(): Flow<MutableList<NoteEntity>>
+    fun getAllNotes(): Flow<    MutableList<NoteEntity> >
 
     @Query("SELECT * FROM $NOTE_TABLE WHERE id == :id")
     fun getNote(id: Int): Flow<NoteEntity>

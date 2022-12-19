@@ -19,25 +19,36 @@ import com.aristotele.noteapp.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
-
+/**
+ * اکتیوتی اصلی
+ */
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-    //Binding
+    //Binding رو کپسوله میکنیم
     private var _binding: ActivityMainBinding? = null
     private val binding get() = _binding
 
+
+
+    //تزریق آدابتر ریسایکلر ویو
     @Inject
     lateinit var notesAdapter: NoteAdapter
 
+    //تزریق انتیتی
     @Inject
     lateinit var noteEntity: NoteEntity
 
     //Other
+    //اینشیالایز ویو مدل این اکتیوتی
     private val viewModel: MainViewModel by viewModels()
+
+    //پارامتر تنظیمی لازم
     private var selectedItem = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        //پُر کردن بایندینگ
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding?.root)
 

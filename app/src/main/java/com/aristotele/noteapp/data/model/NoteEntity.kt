@@ -4,6 +4,10 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.aristotele.noteapp.utils.NOTE_TABLE
 
+/**
+ * مدل داده های یک نوشته هست
+ * که entity ما هست و ...
+ */
 @Entity(tableName = NOTE_TABLE)
 data class NoteEntity(
     @PrimaryKey(autoGenerate = true)

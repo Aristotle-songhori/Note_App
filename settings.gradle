@@ -10,8 +10,10 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        //برای کتابخونه اندازه گذاری ادکردیم
         maven { url "https://jitpack.io" }
     }
 }
+
 rootProject.name = "Note App"
 include ':app'

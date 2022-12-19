@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp">
@@ -12,7 +14,8 @@
         android:rotation="45"
         android:src="@drawable/ic_round_add_24"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="test" />
     <!--Title-->
     <EditText
         android:id="@+id/titleEdt"
@@ -23,13 +26,16 @@
         android:fontFamily="@font/almarai_light"
         android:hint="@string/title"
         android:maxLines="1"
+        android:minHeight="48dp"
         android:padding="10dp"
         android:textColorHint="@color/yellowDark"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/closeImg" />
+        app:layout_constraintTop_toBottomOf="@id/closeImg"
+        android:autofillHints=""
+        android:inputType="text" />
     <!--Description-->
     <EditText
         android:id="@+id/descEdt"
@@ -46,7 +52,8 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/titleEdt" />
+        app:layout_constraintTop_toBottomOf="@id/titleEdt"
+        android:autofillHints="text" />
     <!--Content-->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/contentLay"
@@ -93,7 +100,8 @@
                     android:id="@+id/categoriesSpinner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical" />
+                    android:layout_gravity="center_vertical"
+                    tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
             </androidx.cardview.widget.CardView>
 
@@ -134,7 +142,8 @@
                     android:id="@+id/prioritySpinner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical" />
+                    android:layout_gravity="center_vertical"
+                    tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
             </androidx.cardview.widget.CardView>
 
